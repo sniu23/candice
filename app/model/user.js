@@ -4,18 +4,20 @@ module.exports = app => {
   const { DataTypes } = app.Sequelize;
 
   const columns = {
-    no: { type: DataTypes.STRING(20), unique: true, primaryKey: true },
-    name: { type: DataTypes.STRING(20), unique: true },
-    password: { type: DataTypes.STRING(64), allowNull: false },
-    mail: { type: DataTypes.STRING(50) },
+    no: { type: DataTypes.STRING(20), allowNull: false, unique: true },
+    name: { type: DataTypes.STRING(20), allowNull: false },
+    password: { type: DataTypes.STRING(32), allowNull: false },
+    mail: { type: DataTypes.STRING(40) },
     mobile: { type: DataTypes.STRING(20) },
     roleCode: { type: DataTypes.STRING(20), allowNull: false },
     valid: { type: DataTypes.BOOLEAN(), defaultValue: true },
   };
 
   const indexs = [
-    { fields: [ 'name' ], unique: true },
-    { fields: [ 'status' ] },
+    { fields: [ 'no' ], unique: true },
+    { fields: [ 'name' ] },
+    { fields: [ 'roleCode' ] },
+    { fields: [ 'valid' ] },
   ];
 
   const User = app.model.define('user', columns, { indexs });

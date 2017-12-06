@@ -4,14 +4,15 @@ module.exports = app => {
   const { DataTypes } = app.Sequelize;
 
   const columns = {
-    code: { type: DataTypes.STRING(20), unique: true, primaryKey: true },
-    name: { type: DataTypes.STRING(20), unique: true },
+    code: { type: DataTypes.STRING(20), unique: true, allowNull: false },
+    name: { type: DataTypes.STRING(20), unique: true, allowNull: false },
     valid: { type: DataTypes.BOOLEAN(), defaultValue: true },
   };
 
   const indexs = [
+    { fields: [ 'code' ], unique: true },
     { fields: [ 'name' ], unique: true },
-    { fields: [ 'status' ] },
+    { fields: [ 'valid' ] },
   ];
 
   const Role = app.model.define('role', columns, { indexs });

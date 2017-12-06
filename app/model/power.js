@@ -4,14 +4,15 @@ module.exports = app => {
   const { DataTypes } = app.Sequelize;
 
   const columns = {
-    roleCode: { type: DataTypes.STRING(20), primaryKey: 'RolePage' },
-    pagePath: { type: DataTypes.STRING(50), primaryKey: 'RolePage' },
-    allow: { type: DataTypes.STRING(200), unique: true },
+    roleCode: { type: DataTypes.STRING(20), allowNull: false },
+    pagePath: { type: DataTypes.STRING(40), allowNull: false },
+    allow: { type: DataTypes.STRING(100), unique: true },
     valid: { type: DataTypes.BOOLEAN(), defaultValue: true },
   };
 
   const indexs = [
-    { fields: [ 'status' ] },
+    { fields: [ 'roleCode', 'pagePath' ], unique: true },
+    { fields: [ 'valid' ] },
   ];
 
   const Power = app.model.define('power', columns, { indexs });
